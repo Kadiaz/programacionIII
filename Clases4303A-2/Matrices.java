@@ -5,11 +5,24 @@ public class Matrices {
         int[][] m = {{9,4,1},
                     {2,8,7},
                     {3,5,6}};
+
+        //Mostrar las posiciones  y elementos de la matriz
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[0].length; j++) {
                 System.out.print("m[" + i + "][" + j + "]=" + m[i][j]);
             }
        }
         
+    
+
+    //Uso de la clase OperacionesConMatrices.java
+
+    OperacionesConMatrices opm = new OperacionesConMatrices();
+
+            int[][] matriz = opm.llenarMatriz(4, 4, 0, 9);
+
+            System.out.println(opm.mostrarMatriz(matriz));
+
     }
+
 }
