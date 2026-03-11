@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         Scanner sc = new Scanner(System.in);
         LogisticaOp op = new LogisticaOp();
         int opcion = 0;
@@ -20,19 +21,19 @@ public class Main {
             switch (opcion) {
                 case 1:
                     System.out.print("Posición de muelle (0-9): ");
-                    int pMuelle = sc.nextInt();
+                    posicionMuelle = sc.nextInt();
                     System.out.print("Nombre del buque: ");
-                    op.registrarBuque(pMuelle, sc.next());
+                    op.registrarBuque(posicionMuelle, sc.next());
                     break;
                 case 2:
                     op.mostrarEstado();
                     System.out.print("Columna para el contenedor (0-9): ");
-                    int col = sc.nextInt();
+                    columna = sc.nextInt();
                     System.out.print("País de origen: ");
-                    String ori = sc.next();
+                    origen = sc.nextLine();
                     System.out.print("Peso (kg): ");
-                    double w = sc.nextDouble();
-                    op.registrarContenedor(col, ori, w);
+                    peso = sc.nextDouble();
+                    op.registrarContenedor(columna, origen, peso);
                     break;
                 case 3:
                     System.out.println("Peso total en puerto: " + op.calcularPesoTotal() + " kg");
