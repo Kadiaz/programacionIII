@@ -1,0 +1,42 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Colas 
+{
+    public static void main(String[] args) 
+    {
+        //Crear una cola 
+        Queue<Integer> cola = new LinkedList<>();
+
+        //Insertar elementos en la cola
+        cola.add(10);
+        cola.add(20);
+        cola.add(5);
+        cola.add(15);
+
+        //Mostrar el contenido de la cola
+        System.out.println(cola); //[10, 20, 5, 15]
+
+        //Mostrar la cabeza de la cola (element, peek)
+        System.out.println("element -> " + cola.element()); //10
+        System.out.println("peek -> " + cola.peek()); //10
+
+        //Mostrar la cola
+        System.out.println(cola); //[10, 20, 5, 15]
+
+        //Eliminar los elementos de la cabeza de la cola
+        System.out.println(cola.poll()); //elimina el elemento 10
+        System.out.println(cola.remove()); //elimina el elemento 20
+         
+        //Mostrar la cola
+        System.out.println(cola); //[5, 15]
+
+        //Tamaño de la cola
+        System.out.println("Tamaño de la cola: " + cola.size()); //2
+
+        //Verificar si la cola está vacía
+        System.out.println("¿La cola está vacía? " + cola.isEmpty()); //
+
+    }
+}
+
