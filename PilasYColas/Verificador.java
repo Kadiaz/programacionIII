@@ -1,7 +1,7 @@
 import java.util.Stack;
 import java.util.Scanner;
 
-public class Verificador{
+public class Verificador-{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese la expresión: ");
