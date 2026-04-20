@@ -1,21 +1,16 @@
-/**
- * Representa una maleta que se carga en la bodega del avión.
- * La bodega usa Stack (LIFO): última en entrar, primera en salir.
- */
 public class Maleta
 {
     private String   id;
-    private double   peso;         // en kg
+    private double   peso;
     private Pasajero propietario;
 
-    // Tiempo fijo (en minutos) para cargar o descargar una maleta
     public static final int TIEMPO_CARGA = 1;
-
-    public Maleta(String id, double peso, Pasajero propietario)
+    //Carga y descarga de maletad
+    public Maleta(String idMaleta, double pesoMaleta, Pasajero dueno)
     {
-        this.id          = id;
-        this.peso        = peso;
-        this.propietario = propietario;
+        id          = idMaleta;
+        peso        = pesoMaleta;
+        propietario = dueno;
     }
 
     public String   getId()          { return id;          }

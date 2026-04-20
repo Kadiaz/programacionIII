@@ -3,60 +3,39 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
-/**
- * Clase central del aeropuerto.
- * Coordina todas las estructuras de datos usando java.util:
- *
- *   Queue   → colaAterrizaje, colaDespegue, colaCheckIn, colaSeguridad
- *   PriorityQueue → colaAbordaje  (VIP → Primera Clase → Económica)
- *   Stack   → pilaMaletas         (bodega del avión, LIFO)
- */
 public class Aeropuerto
 {
     private String nombre;
 
-    // ── Colas de aviones (FIFO)
-    private Queue<Avion> colaAterrizaje;
-    private Queue<Avion> colaDespegue;
-
-    // ── Colas de pasajeros (FIFO) 
-    private Queue<Pasajero> colaCheckIn;
-    private Queue<Pasajero> colaSeguridad;
-
-    // ── Cola de abordaje con prioridad 
-    // PriorityQueue usa compareTo() de Pasajero: VIP(1) > Primera(2) > Económica(3)
+    private Queue<Avion>           colaAterrizaje;
+    private Queue<Avion>           colaDespegue;
+    private Queue<Pasajero>        colaCheckIn;
+    private Queue<Pasajero>        colaSeguridad;
     private PriorityQueue<Pasajero> colaAbordaje;
+    private Stack<Maleta>          pilaMaletas;
 
-    // ── Bodega del avión (LIFO) 
-    private Stack<Maleta> pilaMaletas;
-
-    // Reloj interno de la simulación (minutos acumulados)
     private int tiempoTotal;
 
-    public Aeropuerto(String nombre)
+    public Aeropuerto(String nombreAeropuerto)
     {
-        this.nombre          = nombre;
-        this.colaAterrizaje  = new LinkedList<>();
-        this.colaDespegue    = new LinkedList<>();
-        this.colaCheckIn     = new LinkedList<>();
-        this.colaSeguridad   = new LinkedList<>();
-        this.colaAbordaje    = new PriorityQueue<>();
-        this.pilaMaletas     = new Stack<>();
-        this.tiempoTotal     = 0;
+        nombre         = nombreAeropuerto;
+        colaAterrizaje = new LinkedList<>();
+        colaDespegue   = new LinkedList<>();
+        colaCheckIn    = new LinkedList<>();
+        colaSeguridad  = new LinkedList<>();
+        colaAbordaje   = new PriorityQueue<>();
+        pilaMaletas    = new Stack<>();
+        tiempoTotal    = 0;
     }
 
-    //  AVIONES
-    /** Agrega un avión a la cola de aterrizaje */
+    // ── Aviones 
+
     public void agregarAvionAterrizaje(Avion avion)
     {
         colaAterrizaje.add(avion);
         System.out.println("  ✈  " + avion + " ingresó a cola de aterrizaje.");
     }
 
-    /**
-     * Atiende al primer avión en cola de aterrizaje (poll = desencolar).
-     * Suma el tiempo fijo de aterrizaje al reloj.
-     */
     public void procesarAterrizaje()
     {
         if (colaAterrizaje.isEmpty())
@@ -70,17 +49,12 @@ public class Aeropuerto
                 + Avion.TIEMPO_ATERRIZAJE + " min. | Reloj: " + tiempoTotal + " min.");
     }
 
-    /** Agrega un avión a la cola de despegue */
     public void agregarAvionDespegue(Avion avion)
     {
         colaDespegue.add(avion);
         System.out.println("  ✈  " + avion + " ingresó a cola de despegue.");
     }
 
-    /**
-     * Atiende al primer avión en cola de despegue.
-     * Tiempo total = preparación + despegue.
-     */
     public void procesarDespegue()
     {
         if (colaDespegue.isEmpty())
@@ -96,18 +70,14 @@ public class Aeropuerto
                 + tiempoProceso + " min. | Reloj: " + tiempoTotal + " min.");
     }
 
-    //  PASAJEROS
-    /** Agrega un pasajero a la cola de check-in */
-    public void agregarPasajeroCheckIn(Pasajero p)
+    // ── Pasajeros 
+
+    public void agregarPasajeroCheckIn(Pasajero pasajero)
     {
-        colaCheckIn.add(p);
-        System.out.println("  +  " + p + " ingresó a check-in.");
+        colaCheckIn.add(pasajero);
+        System.out.println("  +  " + pasajero + " ingresó a check-in.");
     }
 
-    /**
-     * Atiende al siguiente pasajero en check-in (poll).
-     * Lo mueve automáticamente a la cola de seguridad.
-     */
     public void procesarCheckIn()
     {
         if (colaCheckIn.isEmpty())
@@ -115,17 +85,13 @@ public class Aeropuerto
             System.out.println("  [!] Cola de check-in vacía.");
             return;
         }
-        Pasajero p = colaCheckIn.poll();
+        Pasajero pasajero = colaCheckIn.poll();
         tiempoTotal += Pasajero.TIEMPO_CHECKIN;
-        System.out.println("  >>  Check-in: " + p + " atendido en "
+        System.out.println("  >>  Check-in: " + pasajero + " atendido en "
                 + Pasajero.TIEMPO_CHECKIN + " min. | Reloj: " + tiempoTotal + " min.");
-        colaSeguridad.add(p);   // pasa a seguridad
+        colaSeguridad.add(pasajero);
     }
 
-    /**
-     * Atiende al siguiente pasajero en seguridad (poll).
-     * Lo mueve a la cola de abordaje con prioridad.
-     */
     public void procesarSeguridad()
     {
         if (colaSeguridad.isEmpty())
@@ -133,17 +99,13 @@ public class Aeropuerto
             System.out.println("  [!] Cola de seguridad vacía.");
             return;
         }
-        Pasajero p = colaSeguridad.poll();
+        Pasajero pasajero = colaSeguridad.poll();
         tiempoTotal += Pasajero.TIEMPO_SEGURIDAD;
-        System.out.println("  >>  Seguridad: " + p + " verificado en "
+        System.out.println("  >>  Seguridad: " + pasajero + " verificado en "
                 + Pasajero.TIEMPO_SEGURIDAD + " min. | Reloj: " + tiempoTotal + " min.");
-        colaAbordaje.add(p);    // PriorityQueue lo ubica según compareTo()
+        colaAbordaje.add(pasajero);
     }
 
-    /**
-     * Aborda al pasajero de mayor prioridad (poll en PriorityQueue).
-     * VIP siempre sale primero, sin importar el orden de llegada.
-     */
     public void procesarAbordaje()
     {
         if (colaAbordaje.isEmpty())
@@ -151,14 +113,14 @@ public class Aeropuerto
             System.out.println("  [!] Cola de abordaje vacía.");
             return;
         }
-        Pasajero p = colaAbordaje.poll();
+        Pasajero pasajero = colaAbordaje.poll();
         tiempoTotal += Pasajero.TIEMPO_ABORDAJE;
-        System.out.println("  >>  Abordaje: " + p + " abordó | clase "
-                + p.getClase() + " | Reloj: " + tiempoTotal + " min.");
+        System.out.println("  >>  Abordaje: " + pasajero + " abordó | clase "
+                + pasajero.getClase() + " | Reloj: " + tiempoTotal + " min.");
     }
 
-    //  MALETAS  (Stack – LIFO)
-    /** Carga una maleta en la bodega (push) */
+    // ── Maletas 
+
     public void cargarMaleta(Maleta maleta)
     {
         pilaMaletas.push(maleta);
@@ -167,7 +129,6 @@ public class Aeropuerto
                 + " | Reloj: " + tiempoTotal + " min.");
     }
 
-    /** Descarga la última maleta cargada (pop – LIFO) */
     public void descargarMaleta()
     {
         if (pilaMaletas.empty())
@@ -181,18 +142,19 @@ public class Aeropuerto
                 + " | Reloj: " + tiempoTotal + " min.");
     }
 
-    //  ESTADO GENERAL
+    // ── Estado 
+
     public void mostrarEstado()
     {
         System.out.println("\n  ══════════════════════════════════════════════");
         System.out.println("  " + nombre + " | Tiempo acumulado: " + tiempoTotal + " min");
         System.out.println("  ══════════════════════════════════════════════");
-        System.out.println("  Cola Aterrizaje  : " + colaAterrizaje);
-        System.out.println("  Cola Despegue    : " + colaDespegue);
-        System.out.println("  Cola Check-in    : " + colaCheckIn);
-        System.out.println("  Cola Seguridad   : " + colaSeguridad);
-        System.out.println("  Cola Abordaje    : " + colaAbordaje);
-        System.out.println("  Pila Maletas     : " + pilaMaletas);
+        System.out.println("  Cola Aterrizaje : " + colaAterrizaje);
+        System.out.println("  Cola Despegue   : " + colaDespegue);
+        System.out.println("  Cola Check-in   : " + colaCheckIn);
+        System.out.println("  Cola Seguridad  : " + colaSeguridad);
+        System.out.println("  Cola Abordaje   : " + colaAbordaje);
+        System.out.println("  Pila Maletas    : " + pilaMaletas);
         System.out.println("  ══════════════════════════════════════════════\n");
     }
 
