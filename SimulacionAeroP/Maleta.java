@@ -5,7 +5,7 @@ public class Maleta
     private Pasajero propietario;
 
     public static final int TIEMPO_CARGA = 1;
-    //Carga y descarga de maletad
+    //Carga y descarga de maletas
     public Maleta(String idMaleta, double pesoMaleta, Pasajero dueno)
     {
         id          = idMaleta;
