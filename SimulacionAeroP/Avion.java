@@ -19,7 +19,7 @@ public class Avion
     public String getAerolinea() { return aerolinea; }
     public int    getCapacidad() { return capacidad;  }
 
-    @Override
+    @Override //Verifica el método del compareTo
     public String toString()
     {
         return matricula + "[" + aerolinea + "]";
