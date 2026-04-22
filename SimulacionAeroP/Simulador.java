@@ -7,11 +7,11 @@ public class Simulador
         //Aviones 
         Avion a1 = new Avion("AV101", "Avianca", 180);
         Avion a2 = new Avion("LA202", "LATAM",   200);
-        Avion a3 = new Avion("CO303", "Copa",    160);
+        Avion a3 = new Avion("CO303", "CopaAir",    160);
 
         //Pasajeros 
         Pasajero p1 = new Pasajero("P01", "Carlos",    Pasajero.ClasePasajero.ECONOMICA);
-        Pasajero p2 = new Pasajero("P02", "Valentina", Pasajero.ClasePasajero.VIP);
+        Pasajero p2 = new Pasajero("P02", "Laura", Pasajero.ClasePasajero.VIP);
         Pasajero p3 = new Pasajero("P03", "Andres",    Pasajero.ClasePasajero.PRIMERA_CLASE);
         Pasajero p4 = new Pasajero("P04", "Maria",     Pasajero.ClasePasajero.ECONOMICA);
         Pasajero p5 = new Pasajero("P05", "Diego",     Pasajero.ClasePasajero.VIP);
