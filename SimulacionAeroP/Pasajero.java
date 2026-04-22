@@ -23,9 +23,9 @@ public class Pasajero implements Comparable<Pasajero>
     private String nombre;
     private ClasePasajero clase;
 
-    public static final int TIEMPO_CHECKIN   = 3;
-    public static final int TIEMPO_SEGURIDAD = 2;
-    public static final int TIEMPO_ABORDAJE  = 1;
+    public static final int tiempoCheckIn  = 3;
+    public static final int tiempoSeguridad = 2;
+    public static final int tiempoAbordaje  = 1;
 
     public Pasajero(String idPasajero, String nombrePasajero, ClasePasajero clasePasajero)
     {

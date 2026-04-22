@@ -4,19 +4,19 @@ public class Simulador
     {
         Aeropuerto aeropuerto = new Aeropuerto("Aeropuerto El Dorado - BOG");
 
-        // ── Aviones 
+        //Aviones 
         Avion a1 = new Avion("AV101", "Avianca", 180);
         Avion a2 = new Avion("LA202", "LATAM",   200);
         Avion a3 = new Avion("CO303", "Copa",    160);
 
-        // ── Pasajeros 
+        //Pasajeros 
         Pasajero p1 = new Pasajero("P01", "Carlos",    Pasajero.ClasePasajero.ECONOMICA);
         Pasajero p2 = new Pasajero("P02", "Valentina", Pasajero.ClasePasajero.VIP);
         Pasajero p3 = new Pasajero("P03", "Andres",    Pasajero.ClasePasajero.PRIMERA_CLASE);
         Pasajero p4 = new Pasajero("P04", "Maria",     Pasajero.ClasePasajero.ECONOMICA);
         Pasajero p5 = new Pasajero("P05", "Diego",     Pasajero.ClasePasajero.VIP);
 
-        // ── Maletas 
+        //Maletas 
         Maleta m1 = new Maleta("M01", 22.5, p1);
         Maleta m2 = new Maleta("M02", 18.0, p2);
         Maleta m3 = new Maleta("M03", 25.0, p3);
