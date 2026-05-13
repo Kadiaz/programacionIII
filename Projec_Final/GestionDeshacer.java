@@ -1,55 +1,54 @@
 // GestionDeshacer.java
-import java.util.Stack;
-
 public class GestionDeshacer {
 
-    private Stack<Estudiante> pilaDeshacer;
-    private Stack<Estudiante> pilaRehacer;
+    private Pila<Estudiante> pilaDeshacer;
+    private Pila<Estudiante> pilaRehacer;
     private GestionEstudiantes gestion;
 
     public GestionDeshacer(GestionEstudiantes gestionP) {
-        pilaDeshacer = new Stack<>();
-        pilaRehacer = new Stack<>();
+        pilaDeshacer = new Pila<>();
+        pilaRehacer = new Pila<>();
         gestion = gestionP;
     }
 
     // Guarda el estudiante eliminado en la pila deshacer
     public void guardarEnPilaDeshacer(Estudiante estudianteP) {
-        pilaDeshacer.push(estudianteP);
-        pilaRehacer.clear(); // al hacer nueva acción se limpia rehacer
+        pilaDeshacer.apilar(estudianteP);
         System.out.println("Operacion guardada. Puede deshacerla.");
     }
 
     // Deshacer: restaura el estudiante eliminado
     public void deshacer() throws PilaDeshacerVaciaException {
-        if (pilaDeshacer.isEmpty()) {
+        if (pilaDeshacer.estaVacia()) {
             throw new PilaDeshacerVaciaException(
                 "Error: No hay operaciones para deshacer."
             );
         }
-        Estudiante estudianteRestaurado = pilaDeshacer.pop();
+        Estudiante estudianteRestaurado = pilaDeshacer.desapilar();
         gestion.registrarEstudiante(
             estudianteRestaurado.getNombre(),
             estudianteRestaurado.getId(),
             estudianteRestaurado.getEmail(),
             estudianteRestaurado.getSemestre()
         );
-        pilaRehacer.push(estudianteRestaurado);
-        System.out.println("Operacion deshecha: " + estudianteRestaurado.getNombre() + " restaurado.");
+        pilaRehacer.apilar(estudianteRestaurado);
+        System.out.println("Operacion deshecha: " + 
+            estudianteRestaurado.getNombre() + " restaurado.");
     }
 
     // Rehacer: vuelve a eliminar el estudiante
     public void rehacer() throws PilaDeshacerVaciaException {
-        if (pilaRehacer.isEmpty()) {
+        if (pilaRehacer.estaVacia()) {
             throw new PilaDeshacerVaciaException(
                 "Error: No hay operaciones para rehacer."
             );
         }
-        Estudiante estudianteRehacer = pilaRehacer.pop();
+        Estudiante estudianteRehacer = pilaRehacer.desapilar();
         try {
             gestion.eliminarEstudiante(estudianteRehacer.getId());
-            pilaDeshacer.push(estudianteRehacer);
-            System.out.println("Operacion rehecha: " + estudianteRehacer.getNombre() + " eliminado nuevamente.");
+            pilaDeshacer.apilar(estudianteRehacer);
+            System.out.println("Operacion rehecha: " + 
+                estudianteRehacer.getNombre() + " eliminado nuevamente.");
         } catch (EstudianteNoEncontradoException e) {
             System.out.println(e.getMessage());
         }

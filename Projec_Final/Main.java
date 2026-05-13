@@ -7,6 +7,8 @@ public class Main {
         GestionEstudiantes gestion = new GestionEstudiantes();
         GestionDeshacer deshacer = new GestionDeshacer(gestion);
         GestionMaterias gestionMaterias = new GestionMaterias(gestion);
+        GestionHorarios gestionHorarios = new GestionHorarios();
+        GestionEdificios gestionEdificios = new GestionEdificios();
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -14,11 +16,13 @@ public class Main {
             System.out.println("\n============================================================");
             System.out.println("   PLANIFICACIÓN ACADÉMICA - SISTEMA UNIVERSITARIO");
             System.out.println("============================================================");
+            
             System.out.println("=== GESTION DE ESTUDIANTES ===");
             System.out.println("1. Registrar estudiante");
             System.out.println("2. Buscar estudiante por ID");
             System.out.println("3. Listar todos los estudiantes");
             System.out.println("4. Eliminar estudiante");
+
             System.out.println("=== GESTION DE MATERIAS ===");
             System.out.println("5. Crear materia");
             System.out.println("6. Agregar prerequisito");
@@ -27,9 +31,24 @@ public class Main {
             System.out.println("9. Cancelar inscripcion");
             System.out.println("10. Mostrar cola de espera");
             System.out.println("11. Listar todas las materias");
+
+            System.out.println("=== GESTION DE HORARIOS ===");
+            System.out.println("12. Agregar aula");
+            System.out.println("13. Reservar horario");
+            System.out.println("14. Liberar horario");
+            System.out.println("15. Consultar disponibilidad");
+            System.out.println("16. Mostrar horario de aula");
+            System.out.println("17. Listar todas las aulas");
+
+            System.out.println("=== RUTAS ENTRE EDIFICIOS ===");
+            System.out.println("18. Mostrar edificios");
+            System.out.println("19. Agregar conexion entre edificios");
+            System.out.println("20. Calcular ruta mas corta");
+            System.out.println("21. Mostrar matriz de distancias");
+
             System.out.println("=== DESHACER / REHACER ===");
-            System.out.println("5. Deshacer ultima operacion");
-            System.out.println("6. Rehacer ultima operacion");
+            System.out.println("22. Deshacer ultima operacion");
+            System.out.println("23. Rehacer ultima operacion");
             System.out.println("0. Salir");
             System.out.println("============================================================");
             System.out.print("Seleccione una opcion: ");
@@ -139,6 +158,99 @@ public class Main {
                     break;
 
                 case 12:
+                    System.out.println("\n--- AGREGAR AULA ---");
+                    System.out.print("Nombre del aula: ");
+                    String nombreAula = scanner.nextLine();
+                    System.out.print("Capacidad: ");
+                    int capacidad = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionHorarios.agregarAula(nombreAula, capacidad);
+                    break;
+
+                case 13:
+                    System.out.println("\n--- RESERVAR HORARIO ---");
+                    System.out.print("Nombre del aula: ");
+                    String aulaReservar = scanner.nextLine();
+                    System.out.println("Dia (0=Domingo, 1=Lunes, 2=Martes, 3=Miercoles, 4=Jueves, 5=Viernes, 6=Sabado): ");
+                    int diaReservar = scanner.nextInt();
+                    System.out.print("Hora de inicio (ejemplo: 8): ");
+                    int horaReservar = scanner.nextInt();
+                    System.out.print("Duracion (horas): ");
+                    int duracionReservar = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionHorarios.reservar(aulaReservar, diaReservar, horaReservar, duracionReservar);
+                    break;
+
+                case 14:
+                    System.out.println("\n--- LIBERAR HORARIO ---");
+                    System.out.print("Nombre del aula: ");
+                    String aulaLiberar = scanner.nextLine();
+                    System.out.println("Dia (0=Domingo, 1=Lunes, 2=Martes, 3=Miercoles, 4=Jueves, 5=Viernes, 6=Sabado): ");
+                    int diaLiberar = scanner.nextInt();
+                    System.out.print("Hora de inicio (ejemplo: 8): ");
+                    int horaLiberar = scanner.nextInt();
+                    System.out.print("Duracion (horas): ");
+                    int duracionLiberar = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionHorarios.liberar(aulaLiberar, diaLiberar, horaLiberar, duracionLiberar);
+                    break;
+
+                case 15:
+                    System.out.println("\n--- CONSULTAR DISPONIBILIDAD ---");
+                    System.out.print("Nombre del aula: ");
+                    String aulaConsultar = scanner.nextLine();
+                    System.out.println("Dia (0=Domingo, 1=Lunes, 2=Martes, 3=Miercoles, 4=Jueves, 5=Viernes, 6=Sabado): ");
+                    int diaConsultar = scanner.nextInt();
+                    System.out.print("Hora (ejemplo: 8): ");
+                    int horaConsultar = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionHorarios.consultarDisponibilidad(aulaConsultar, diaConsultar, horaConsultar);
+                    break;
+
+                case 16:
+                    System.out.println("\n--- MOSTRAR HORARIO DE AULA ---");
+                    System.out.print("Nombre del aula: ");
+                    String aulaMostrar = scanner.nextLine();
+                    gestionHorarios.mostrarHorario(aulaMostrar);
+                    break;
+
+                case 17:
+                    gestionHorarios.listarAulas();
+                    break;
+
+                case 18:
+                    gestionEdificios.mostrarEdificios();
+                    break;
+
+                case 19:
+                    System.out.println("\n--- AGREGAR CONEXION ---");
+                    gestionEdificios.mostrarEdificios();
+                    System.out.print("Indice edificio origen: ");
+                    int origen = scanner.nextInt();
+                    System.out.print("Indice edificio destino: ");
+                    int destino = scanner.nextInt();
+                    System.out.print("Distancia en metros: ");
+                    int distancia = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionEdificios.agregarConexion(origen, destino, distancia);
+                    break;
+
+                case 20:
+                    System.out.println("\n--- CALCULAR RUTA MAS CORTA ---");
+                    gestionEdificios.mostrarEdificios();
+                    System.out.print("Indice edificio origen: ");
+                    int origenRuta = scanner.nextInt();
+                    System.out.print("Indice edificio destino: ");
+                    int destinoRuta = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionEdificios.calcularRutaMasCorta(origenRuta, destinoRuta);
+                    break;
+
+                case 21:
+                    gestionEdificios.mostrarMatriz();
+                    break;
+
+                case 22:
                     try {
                         deshacer.deshacer();
                     } catch (PilaDeshacerVaciaException e) {
@@ -146,7 +258,7 @@ public class Main {
                     }
                     break;
 
-                case 13:
+                case 23:
                     try {
                         deshacer.rehacer();
                     } catch (PilaDeshacerVaciaException e) {
