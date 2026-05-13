@@ -16,14 +16,15 @@ public class Main {
 
         do {
             System.out.println("\n============================================================");
-            System.out.println("   PLANIFICACIÓN ACADÉMICA - SISTEMA UNIVERSITARIO");
+            System.out.println("   REGISTRO ACADÉMICO - SISTEMA UNIVERSITARIO");
             System.out.println("============================================================");
-            System.out.println("=== GESTION DE ESTUDIANTES ===");
+            System.out.println("\n === GESTION DE ESTUDIANTES ===");
             System.out.println("1. Registrar estudiante");
             System.out.println("2. Buscar estudiante por ID");
             System.out.println("3. Listar todos los estudiantes");
             System.out.println("4. Eliminar estudiante");
-            System.out.println("=== GESTION DE MATERIAS ===");
+
+            System.out.println("\n === GESTION DE MATERIAS ===");
             System.out.println("5. Crear materia");
             System.out.println("6. Agregar prerequisito");
             System.out.println("7. Mostrar prerequisitos");
@@ -31,31 +32,38 @@ public class Main {
             System.out.println("9. Cancelar inscripcion");
             System.out.println("10. Mostrar cola de espera");
             System.out.println("11. Listar todas las materias");
-            System.out.println("=== GESTION DE HORARIOS ===");
+
+            System.out.println("\n === GESTION DE HORARIOS ===");
             System.out.println("12. Agregar aula");
             System.out.println("13. Reservar horario");
             System.out.println("14. Liberar horario");
             System.out.println("15. Consultar disponibilidad");
             System.out.println("16. Mostrar horario de aula");
             System.out.println("17. Listar todas las aulas");
-            System.out.println("=== RUTAS ENTRE EDIFICIOS ===");
+
+            System.out.println("\n === RUTAS ENTRE EDIFICIOS ===");
             System.out.println("18. Mostrar edificios");
             System.out.println("19. Agregar conexion entre edificios");
             System.out.println("20. Calcular ruta mas corta");
             System.out.println("21. Mostrar matriz de distancias");
-            System.out.println("=== REPORTES ACADEMICOS ===");
+
+            System.out.println("\n === REPORTES ACADEMICOS ===");
             System.out.println("22. Registrar nota");
             System.out.println("23. Ver reporte academico");
             System.out.println("24. Volver al reporte anterior");
-            System.out.println("=== PROCESAMIENTO BATCH ===");
+
+            System.out.println("\n === PROCESAMIENTO BATCH ===");
             System.out.println("25. Ingresar solicitudes batch");
             System.out.println("26. Procesar cola batch");
             System.out.println("27. Ver solicitudes pendientes");
-            System.out.println("=== DESHACER / REHACER ===");
+
+            System.out.println("\n === DESHACER / REHACER ===");
             System.out.println("28. Deshacer ultima operacion");
             System.out.println("29. Rehacer ultima operacion");
+            
+            System.out.println("\n=== SALIR ===");
             System.out.println("0. Salir");
-            System.out.println("============================================================");
+            System.out.println("\n============================================================");
             System.out.print("Seleccione una opcion: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
