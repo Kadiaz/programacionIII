@@ -100,4 +100,22 @@ public class GestionMaterias {
     public HashMap<String, Materia> getMaterias() {
         return materias;
     }
+
+    public void inscribirEstudianteBatch(String idEstudianteP, String codigoMateriaP) 
+        throws Exception {
+        Materia materia = materias.get(codigoMateriaP);
+        if (materia == null) {
+            throw new Exception("Materia " + codigoMateriaP + " no existe");
+        }
+        try {
+            Estudiante estudiante = gestionEstudiantes.buscarEstudiante(idEstudianteP);
+            materia.inscribirEstudiante(estudiante);
+        } catch (EstudianteNoEncontradoException e) {
+            throw new Exception("Estudiante " + idEstudianteP + " no encontrado");
+        } catch (CupoLlenoException e) {
+            throw new Exception("Cupo lleno en " + codigoMateriaP);
+        } catch (PreRequisitoNoAprobadoException e) {
+            throw new Exception("Prerequisito no aprobado");
+        }
+    }
 }
