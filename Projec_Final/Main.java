@@ -6,6 +6,7 @@ public class Main {
 
         GestionEstudiantes gestion = new GestionEstudiantes();
         GestionDeshacer deshacer = new GestionDeshacer(gestion);
+        GestionMaterias gestionMaterias = new GestionMaterias(gestion);
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -18,6 +19,14 @@ public class Main {
             System.out.println("2. Buscar estudiante por ID");
             System.out.println("3. Listar todos los estudiantes");
             System.out.println("4. Eliminar estudiante");
+            System.out.println("=== GESTION DE MATERIAS ===");
+            System.out.println("5. Crear materia");
+            System.out.println("6. Agregar prerequisito");
+            System.out.println("7. Mostrar prerequisitos");
+            System.out.println("8. Inscribir estudiante en materia");
+            System.out.println("9. Cancelar inscripcion");
+            System.out.println("10. Mostrar cola de espera");
+            System.out.println("11. Listar todas las materias");
             System.out.println("=== DESHACER / REHACER ===");
             System.out.println("5. Deshacer ultima operacion");
             System.out.println("6. Rehacer ultima operacion");
@@ -71,6 +80,65 @@ public class Main {
                     break;
 
                 case 5:
+                    System.out.println("\n--- CREAR MATERIA ---");
+                    System.out.print("Codigo: ");
+                    String codigoMateria = scanner.nextLine();
+                    System.out.print("Nombre: ");
+                    String nombreMateria = scanner.nextLine();
+                    System.out.print("Cupos maximos: ");
+                    int cupos = scanner.nextInt();
+                    System.out.print("Creditos: ");
+                    int creditos = scanner.nextInt();
+                    scanner.nextLine();
+                    gestionMaterias.crearMateria(codigoMateria, nombreMateria, cupos, creditos);
+                    break;
+
+                case 6:
+                    System.out.println("\n--- AGREGAR PREREQUISITO ---");
+                    System.out.print("Codigo de la materia: ");
+                    String codMateria = scanner.nextLine();
+                    System.out.print("Codigo del prerequisito: ");
+                    String codPreReq = scanner.nextLine();
+                    gestionMaterias.agregarPreRequisito(codMateria, codPreReq);
+                    break;
+
+                case 7:
+                    System.out.println("\n--- MOSTRAR PREREQUISITOS ---");
+                    System.out.print("Codigo de la materia: ");
+                    String codVerPreReq = scanner.nextLine();
+                    gestionMaterias.mostrarPreRequisitos(codVerPreReq);
+                    break;
+
+                case 8:
+                    System.out.println("\n--- INSCRIBIR ESTUDIANTE ---");
+                    System.out.print("ID del estudiante: ");
+                    String idInscribir = scanner.nextLine();
+                    System.out.print("Codigo de la materia: ");
+                    String codInscribir = scanner.nextLine();
+                    gestionMaterias.inscribirEstudiante(idInscribir, codInscribir);
+                    break;
+
+                case 9:
+                    System.out.println("\n--- CANCELAR INSCRIPCION ---");
+                    System.out.print("ID del estudiante: ");
+                    String idCancelar = scanner.nextLine();
+                    System.out.print("Codigo de la materia: ");
+                    String codCancelar = scanner.nextLine();
+                    gestionMaterias.cancelarInscripcion(idCancelar, codCancelar);
+                    break;
+
+                case 10:
+                    System.out.println("\n--- COLA DE ESPERA ---");
+                    System.out.print("Codigo de la materia: ");
+                    String codCola = scanner.nextLine();
+                    gestionMaterias.mostrarColaEspera(codCola);
+                    break;
+
+                case 11:
+                    gestionMaterias.listarMaterias();
+                    break;
+
+                case 12:
                     try {
                         deshacer.deshacer();
                     } catch (PilaDeshacerVaciaException e) {
@@ -78,7 +146,7 @@ public class Main {
                     }
                     break;
 
-                case 6:
+                case 13:
                     try {
                         deshacer.rehacer();
                     } catch (PilaDeshacerVaciaException e) {
