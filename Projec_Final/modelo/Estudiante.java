@@ -2,11 +2,20 @@ package modelo;
 
 import java.util.LinkedList;
 
+/**
+ * clase estudiante que Hereda de Persona y agrega atributos academicos como
+ * semestre, notas e historial de materias cursadas.
+ */
 public class Estudiante extends Persona {
     private int semestre;
+    /** 
+     * Arreglo de notas por semestre y materia.
+     * Tamaño de: [10 semestres][20 materias por semestre]
+     */
     private Double[][] notas;
     private LinkedList<String> historialMaterias;
-
+    
+    //Constructor de la clase
     public Estudiante(String nombreP, String idP, String emailP, int semestreP) {
         super(nombreP, idP, emailP);
         semestre = semestreP;
@@ -33,7 +42,10 @@ public class Estudiante extends Persona {
         }
         return count > 0 ? suma / count : 0.0;
     }
-
+    /**
+     * Muestra la informacion completa del estudiante en consola.
+     * Sobrescribe el metodo abstracto de Persona.
+     */
     @Override
     public void mostrarInformacion() {
         System.out.println("==============================");

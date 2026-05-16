@@ -2,11 +2,18 @@ package modelo;
 
 import excepciones.HorarioConflictivoException;
 
+/**
+     * Clase que representa un aula fisica universitaria.
+     * Gestiona la disponibilidad horaria mediante una matriz
+     * nativa boolean[7][24] donde 7 son los dias de la semana
+     * y 24 las horas del dia.
+     */
 public class Aula {
     private String nombre;
     private int capacidad;
     private boolean[][] horario; // [7 dias][24 horas]
-
+    
+    //Constructor de la clase.
     public Aula(String nombreP, int capacidadP) {
         nombre = nombreP;
         capacidad = capacidadP;

@@ -1,12 +1,18 @@
 package modelo;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.lang.reflect.Constructor;
 import java.util.ArrayDeque;
 import excepciones.*;
 import util.GestionEstudiantes;
 
 import java.util.ArrayDeque;
 
+/**
+ * Clase materia que gestiona cupos, prerequisitos, inscripciones y cola de espera.
+ * Usa LinkedList para prerequisitos y estudiantes inscritos,
+ * y Queue para la cola de espera cuando los cupos estan llenos.
+ */
 public class Materia {
     private String codigo;
     private String nombre;
@@ -16,7 +22,8 @@ public class Materia {
     private LinkedList<String> preRequisitos;
     private LinkedList<String> estudiantesInscritos;
     private Queue<String> colaEspera;
-
+    
+    //Constructor de la clase.
     public Materia(String codigoP, String nombreP, int cuposMaximosP, int creditosP) {
         codigo = codigoP;
         nombre = nombreP;
@@ -134,7 +141,8 @@ public class Materia {
     public int getCuposMaximos() { return cuposMaximos; }
     public LinkedList<String> getEstudiantesInscritos() { return estudiantesInscritos; }
     public Queue<String> getColaEspera() { return colaEspera; }
-
+    
+    //Muestra la informacion general de la materia.
     public void mostrarInformacion() {
         System.out.println("==============================");
         System.out.println("Codigo:   " + codigo);
