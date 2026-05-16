@@ -1,7 +1,6 @@
 package util;
-// GestionHorarios.java
-import java.util.TreeMap;
 
+import java.util.TreeMap;
 import excepciones.HorarioConflictivoException;
 import modelo.Aula;
 

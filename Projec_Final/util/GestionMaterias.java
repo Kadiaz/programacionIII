@@ -1,10 +1,7 @@
 package util;
-// GestionMaterias.java
-import java.util.HashMap;
 
-import excepciones.CupoLlenoException;
-import excepciones.EstudianteNoEncontradoException;
-import excepciones.PreRequisitoNoAprobadoException;
+import java.util.HashMap;
+import excepciones.*;
 import modelo.Estudiante;
 import modelo.Materia;
 

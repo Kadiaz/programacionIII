@@ -1,5 +1,4 @@
 package util;
-// GestionDeshacer.java
 
 import estructuras.Pila;
 import excepciones.EstudianteNoEncontradoException;

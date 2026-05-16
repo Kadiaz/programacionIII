@@ -1,5 +1,5 @@
 package util;
-// GestionEdificios.java
+
 public class GestionEdificios {
 
     private String[] edificios;
