@@ -1,0 +1,228 @@
+@startuml SistemaGestionAcademica
+
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #EAF2FF
+    BorderColor #1F4E79
+    ArrowColor #1F4E79
+    FontName Arial
+}
+
+' =====================
+' PAQUETE MODELO
+' =====================
+package modelo {
+
+    abstract class Persona {
+        - nombre : String
+        - id : String
+        - email : String
+        + Persona(nombreP, idP, emailP)
+        + getNombre() : String
+        + getId() : String
+        + getEmail() : String
+        + {abstract} mostrarInformacion() : void
+    }
+
+    class Estudiante {
+        - semestre : int
+        - notas : Double[10][20]
+        - historialMaterias : LinkedList<String>
+        + Estudiante(nombreP, idP, emailP, semestreP)
+        + getSemestre() : int
+        + getNotas() : Double[][]
+        + getHistorialMaterias() : LinkedList<String>
+        + registrarNota(semestreP, materiaP, notaP) : void
+        + calcularPromedio(semestreP) : double
+        + mostrarInformacion() : void
+    }
+
+    class Materia {
+        - codigo : String
+        - nombre : String
+        - cuposMaximos : int
+        - cuposDisponibles : int
+        - creditos : int
+        - preRequisitos : LinkedList<String>
+        - estudiantesInscritos : LinkedList<String>
+        - colaEspera : Queue<String>
+        + Materia(codigoP, nombreP, cuposMaximosP, creditosP)
+        + agregarPreRequisito(codigoMateriaP) : void
+        + cumplePreRequisitos(historialP) : boolean
+        + inscribirEstudiante(estudianteP) : void
+        + cancelarInscripcion(idEstudianteP, gestionP) : void
+        + mostrarColaEspera() : void
+        + mostrarPreRequisitos() : void
+        + mostrarInformacion() : void
+    }
+
+    class Aula {
+        - nombre : String
+        - capacidad : int
+        - horario : boolean[7][24]
+        + Aula(nombreP, capacidadP)
+        + reservar(diaP, horaP, duracionP) : void
+        + liberar(diaP, horaP, duracionP) : void
+        + consultarDisponibilidad(diaP, horaP) : void
+        + mostrarHorario() : void
+        + getNombre() : String
+        + getCapacidad() : int
+    }
+}
+
+' =====================
+' PAQUETE ESTRUCTURAS
+' =====================
+package estructuras {
+
+    class Pila<T> {
+        - tope : Nodo
+        - tamanio : int
+        + Pila()
+        + apilar(datoP) : void
+        + desapilar() : T
+        + verTope() : T
+        + estaVacia() : boolean
+        + getTamanio() : int
+        + mostrar() : void
+    }
+}
+
+' =====================
+' PAQUETE EXCEPCIONES
+' =====================
+package excepciones {
+    class EstudianteNoEncontradoException
+    class CupoLlenoException
+    class PreRequisitoNoAprobadoException
+    class HorarioConflictivoException
+    class ColaDeEsperaVaciaException
+    class PilaDeshacerVaciaException
+    class ArchivoInvalidoException
+}
+
+' =====================
+' PAQUETE UTIL
+' =====================
+package util {
+
+    class GestionEstudiantes {
+        - estudiantes : HashMap<String, Estudiante>
+        + GestionEstudiantes()
+        + registrarEstudiante(nombreP, idP, emailP, semestreP) : void
+        + buscarEstudiante(idP) : Estudiante
+        + listarEstudiantes() : void
+        + eliminarEstudiante(idP) : Estudiante
+        + getEstudiantes() : HashMap
+    }
+
+    class GestionMaterias {
+        - materias : HashMap<String, Materia>
+        - gestionEstudiantes : GestionEstudiantes
+        + GestionMaterias(gestionEstudiantesP)
+        + crearMateria(codigoP, nombreP, cuposP, creditosP) : void
+        + agregarPreRequisito(codigoMateriaP, codigoPreReqP) : void
+        + mostrarPreRequisitos(codigoMateriaP) : void
+        + inscribirEstudiante(idEstudianteP, codigoMateriaP) : void
+        + cancelarInscripcion(idEstudianteP, codigoMateriaP) : void
+        + mostrarColaEspera(codigoMateriaP) : void
+        + listarMaterias() : void
+        + inscribirEstudianteBatch(idEstudianteP, codigoMateriaP) : void
+    }
+
+    class GestionHorarios {
+        - aulas : TreeMap<String, Aula>
+        + GestionHorarios()
+        + agregarAula(nombreP, capacidadP) : void
+        + reservar(nombreAulaP, diaP, horaP, duracionP) : void
+        + liberar(nombreAulaP, diaP, horaP, duracionP) : void
+        + consultarDisponibilidad(nombreAulaP, diaP, horaP) : void
+        + mostrarHorario(nombreAulaP) : void
+        + listarAulas() : void
+    }
+
+    class GestionEdificios {
+        - edificios : String[]
+        - distancias : int[][]
+        - numEdificios : int
+        + GestionEdificios()
+        + agregarConexion(origenP, destinoP, distanciaP) : void
+        + mostrarEdificios() : void
+        + calcularRutaMasCorta(origenP, destinoP) : void
+        + mostrarMatriz() : void
+    }
+
+    class GestionDeshacer {
+        - pilaDeshacer : Pila<Estudiante>
+        - pilaRehacer : Pila<Estudiante>
+        - gestion : GestionEstudiantes
+        + GestionDeshacer(gestionP)
+        + guardarEnPilaDeshacer(estudianteP) : void
+        + deshacer() : void
+        + rehacer() : void
+    }
+
+    class GestionReportes {
+        - gestionEstudiantes : GestionEstudiantes
+        - historialReportes : Stack<String>
+        + GestionReportes(gestionEstudiantesP)
+        + registrarNota(idEstudianteP, semestreP, materiaP, notaP) : void
+        + verReporte(idEstudianteP) : void
+        + atras() : void
+    }
+
+    class GestionBatch {
+        - colaSolicitudes : Queue<String[]>
+        - gestionMaterias : GestionMaterias
+        + GestionBatch(gestionMateriasP)
+        + encolarSolicitudes(scannerP) : void
+        + procesarCola() : void
+        + verSolicitudesPendientes() : void
+    }
+}
+
+' =====================
+' CLASE PRINCIPAL
+' =====================
+class Main {
+    + {static} main(args : String[]) : void
+}
+
+' =====================
+' RELACIONES
+' =====================
+
+' Herencia
+Persona <|-- Estudiante
+
+' Excepciones heredan de Exception
+Exception <|-- EstudianteNoEncontradoException
+Exception <|-- CupoLlenoException
+Exception <|-- PreRequisitoNoAprobadoException
+Exception <|-- HorarioConflictivoException
+Exception <|-- ColaDeEsperaVaciaException
+Exception <|-- PilaDeshacerVaciaException
+Exception <|-- ArchivoInvalidoException
+
+' Asociaciones
+GestionEstudiantes "1" o-- "0..*" Estudiante : gestiona
+GestionMaterias "1" o-- "0..*" Materia : gestiona
+GestionMaterias --> GestionEstudiantes : usa
+GestionHorarios "1" o-- "0..*" Aula : gestiona
+GestionDeshacer --> GestionEstudiantes : usa
+GestionDeshacer --> Pila : usa
+GestionReportes --> GestionEstudiantes : usa
+GestionBatch --> GestionMaterias : usa
+Materia --> GestionEstudiantes : usa
+
+' Main usa todos los gestores
+Main --> GestionEstudiantes : usa
+Main --> GestionMaterias : usa
+Main --> GestionHorarios : usa
+Main --> GestionEdificios : usa
+Main --> GestionDeshacer : usa
+Main --> GestionReportes : usa
+Main --> GestionBatch : usa
+
+@enduml

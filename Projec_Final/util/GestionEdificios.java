@@ -24,7 +24,7 @@ public class GestionEdificios {
         }
 
         // Edificios predefinidos
-        edificios[0] = "Ingenieria";
+        edificios[0] = "Facultades";
         edificios[1] = "Biblioteca";
         edificios[2] = "Cafeteria";
         edificios[3] = "Rectoria";
