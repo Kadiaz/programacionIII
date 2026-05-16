@@ -1,6 +1,10 @@
-// Materia.java
+package modelo;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.ArrayDeque;
+import excepciones.*;
+import util.GestionEstudiantes;
+
 import java.util.ArrayDeque;
 
 public class Materia {

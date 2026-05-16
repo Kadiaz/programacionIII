@@ -1,4 +1,11 @@
+package util;
 // GestionDeshacer.java
+
+import estructuras.Pila;
+import excepciones.EstudianteNoEncontradoException;
+import excepciones.PilaDeshacerVaciaException;
+import modelo.Estudiante;
+
 public class GestionDeshacer {
 
     private Pila<Estudiante> pilaDeshacer;

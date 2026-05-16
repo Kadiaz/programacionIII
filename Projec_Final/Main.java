@@ -1,6 +1,17 @@
 // Main.java
 import java.util.Scanner;
 
+import excepciones.EstudianteNoEncontradoException;
+import excepciones.PilaDeshacerVaciaException;
+import modelo.Estudiante;
+import util.GestionBatch;
+import util.GestionDeshacer;
+import util.GestionEdificios;
+import util.GestionEstudiantes;
+import util.GestionHorarios;
+import util.GestionMaterias;
+import util.GestionReportes;
+
 public class Main {
     public static void main(String[] args) {
 

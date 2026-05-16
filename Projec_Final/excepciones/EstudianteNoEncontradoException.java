@@ -1,4 +1,5 @@
-// EstudianteNoEncontradoException.java
+package excepciones;
+
 public class EstudianteNoEncontradoException extends Exception {
     public EstudianteNoEncontradoException(String mensajeP) {
         super(mensajeP);

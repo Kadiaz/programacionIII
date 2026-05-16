@@ -1,4 +1,5 @@
-// Estudiante.java
+package modelo;
+
 import java.util.LinkedList;
 
 public class Estudiante extends Persona {

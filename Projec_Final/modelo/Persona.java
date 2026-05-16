@@ -1,4 +1,5 @@
-// Persona.java
+package modelo;
+
 public abstract class Persona {
     private String nombre;
     private String id;

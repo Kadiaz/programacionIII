@@ -1,4 +1,7 @@
-// Pila.java
+package estructuras;
+
+import excepciones.PilaDeshacerVaciaException;
+
 public class Pila<T> {
 
     // Nodo interno de la pila

@@ -1,4 +1,7 @@
-// Aula.java
+package modelo;
+
+import excepciones.HorarioConflictivoException;
+
 public class Aula {
     private String nombre;
     private int capacidad;
