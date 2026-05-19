@@ -122,15 +122,15 @@ public class Main {
 
                 case 2: // MATERIAS
                     String[] opMaterias = {
-                        "[1] Crear materia",
-                        "[2] Agregar prerequisito",
-                        "[3] Mostrar prerequisitos",
-                        "[4] Inscribir estudiante",
-                        "[5] Cancelar inscripcion",
-                        "[6] Mostrar cola de espera",
-                        "[7] Listar todas las materias",
-                        "[0] Volver al menu principal"
-                    };
+                    "[1] Crear materia",
+                    "[2] Listar todas las materias",
+                    "[3] Inscribir estudiante",
+                    "[4] Cancelar inscripcion",
+                    "[5] Mostrar cola de espera",
+                    "[6] Agregar prerequisito",
+                    "[7] Mostrar prerequisitos",
+                    "[0] Volver al menu principal"
+                };
                     int opMat;
                     do {
                         System.out.println("\n============================================================");
@@ -146,6 +146,7 @@ public class Main {
 
                         switch (opMat) {
                             case 1:
+                                // Crear materia
                                 System.out.println("\n--- CREAR MATERIA ---");
                                 System.out.print("Codigo: ");
                                 String codigoMateria = scanner.nextLine();
@@ -160,22 +161,14 @@ public class Main {
                                 break;
 
                             case 2:
-                                System.out.println("\n--- AGREGAR PREREQUISITO ---");
-                                System.out.print("Codigo de la materia: ");
-                                String codMateria = scanner.nextLine();
-                                System.out.print("Codigo del prerequisito: ");
-                                String codPreReq = scanner.nextLine();
-                                gestionMaterias.agregarPreRequisito(codMateria, codPreReq);
+                                // Listar materias
+                                gestionMaterias.listarMaterias();
+                                System.out.println("\nPresione Enter para continuar...");
+                                scanner.nextLine();
                                 break;
 
                             case 3:
-                                System.out.println("\n--- MOSTRAR PREREQUISITOS ---");
-                                System.out.print("Codigo de la materia: ");
-                                String codVerPreReq = scanner.nextLine();
-                                gestionMaterias.mostrarPreRequisitos(codVerPreReq);
-                                break;
-
-                            case 4:
+                                // Inscribir estudiante
                                 System.out.println("\n--- INSCRIBIR ESTUDIANTE ---");
                                 System.out.print("ID del estudiante: ");
                                 String idInscribir = scanner.nextLine();
@@ -184,7 +177,8 @@ public class Main {
                                 gestionMaterias.inscribirEstudiante(idInscribir, codInscribir);
                                 break;
 
-                            case 5:
+                            case 4:
+                                // Cancelar inscripcion
                                 System.out.println("\n--- CANCELAR INSCRIPCION ---");
                                 System.out.print("ID del estudiante: ");
                                 String idCancelar = scanner.nextLine();
@@ -193,17 +187,30 @@ public class Main {
                                 gestionMaterias.cancelarInscripcion(idCancelar, codCancelar);
                                 break;
 
-                            case 6:
+                            case 5:
+                                // Cola de espera
                                 System.out.println("\n--- COLA DE ESPERA ---");
                                 System.out.print("Codigo de la materia: ");
                                 String codCola = scanner.nextLine();
                                 gestionMaterias.mostrarColaEspera(codCola);
                                 break;
 
+                            case 6:
+                                // Agregar prerequisito
+                                System.out.println("\n--- AGREGAR PREREQUISITO ---");
+                                System.out.print("Codigo de la materia: ");
+                                String codMateria = scanner.nextLine();
+                                System.out.print("Codigo del prerequisito: ");
+                                String codPreReq = scanner.nextLine();
+                                gestionMaterias.agregarPreRequisito(codMateria, codPreReq);
+                                break;
+
                             case 7:
-                                gestionMaterias.listarMaterias();
-                                System.out.println("\nPresione Enter para continuar...");
-                                scanner.nextLine();
+                                // Mostrar prerequisitos
+                                System.out.println("\n--- MOSTRAR PREREQUISITOS ---");
+                                System.out.print("Codigo de la materia: ");
+                                String codVerPreReq = scanner.nextLine();
+                                gestionMaterias.mostrarPreRequisitos(codVerPreReq);
                                 break;
 
                             case 0:
